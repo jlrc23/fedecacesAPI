@@ -1,0 +1,13 @@
+{
+    "name": "jlrc23/fedecaces",
+    "description": "Servicios WEB de FEDECCES",
+    "authors": [
+        {
+            "name": "Jose Luis Rosado Cardenas",
+            "email": "joser@enzacta.net"
+        }
+    ],
+    "require": {
+        "slim/slim": "~2.0"
+    }
+}
