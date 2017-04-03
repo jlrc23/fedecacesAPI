@@ -3,6 +3,7 @@
 namespace App\Model\Dao;
 
 
+use App\Libs\Sys\SysErrors;
 use App\Model\Bean\UserBean;
 
 class UserDao
@@ -36,10 +37,10 @@ class UserDao
         if (empty($email)) {
             throw new \Exception("There are wont email of user");
         }
-        $sql = "SELECT count(*) as total FROM {$this->_tblname} WHERE username = :username";
+        $sql = "SELECT count(*) as total FROM users WHERE username = :username";
         try {
             $stmt = self::$_pdo->prepare($sql);
-            $stmt->bindValue(':username', $noibo, \PDO::PARAM_STR);
+            $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetchAll();
             if (isset($result[0]["total"]) && intval($result[0]["total"]) > 0)
