@@ -1,12 +1,14 @@
 <?php
-namespace App\Libs;
+namespace App\Libs\Sys;
 
+
+use Slim\Log;
 
 class DataBase
 {
     const DEFAULT_PORT = 3306;
     public static $objDB = null;
-    private static $_host='napawaredev.net';
+    private static $_host='';
     private static $_hostPort='3306';
     private static $_dataBaseUser='';
     private static $_dataBasePassowrd ='';
@@ -37,10 +39,9 @@ class DataBase
                 self::$objDB->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
                 self::$objDB->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 self::$objDB->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-            } catch (\PDOException $e) {
-                Log::error(sprintf("#%d. %s when try connect", $e->getCode(), $e->getMessage()), $e->getFile(), $e->getLine(), __METHOD__);
-            } catch (\Exception $e) {
-                Log::error(sprintf("#%d. %s when try connect", $e->getCode(), $e->getMessage()), $e->getFile(), $e->getLine(), __METHOD__);
+            }catch (\Exception $e) {
+                $message = sprintf("#%d. %s when try connect, in %s:%d", $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+                error_log($message);
             }
         }
         return self::$objDB;
