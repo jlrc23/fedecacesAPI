@@ -2,6 +2,7 @@
 namespace App\Libs\Sys;
 
 
+use App\Config\DBAccess;
 use Slim\Log;
 
 class DataBase
@@ -14,17 +15,13 @@ class DataBase
     private static $_dataBasePassowrd ='';
     private static $_dataBaseName='';
 
-    public static function preparedClass($host, $usr, $pwd, $db)
+    public static function prepared()
     {
-        if (strpos($host, ':')!==false)
-            list(self::$_host,self::$_hostPort) = explode(':', $host);
-        else {
-            self::$_host = $host;
-            self::$_hostPort = self::DEFAULT_PORT;
-        }
-        self::$_dataBaseName = $db;
-        self::$_dataBaseUser = $usr;
-        self::$_dataBasePassowrd = $pwd;
+        self::$_host = DBAccess::host;
+        self::$_hostPort = DBAccess::hostPort;
+        self::$_dataBaseName = DBAccess::schema;
+        self::$_dataBaseUser = DBAccess::usr;
+        self::$_dataBasePassowrd = DBAccess::pwd;
     }
 
     /**
@@ -35,6 +32,7 @@ class DataBase
     {
         if (empty(self::$objDB)) {
             try {
+                self::prepared();
                 self::$objDB = new \PDO(self::getDSN(), self::$_dataBaseUser, self::$_dataBasePassowrd);
                 self::$objDB->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
                 self::$objDB->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
