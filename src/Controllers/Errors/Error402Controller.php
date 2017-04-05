@@ -12,5 +12,8 @@ namespace App\Controllers\Errors;
 class Error402Controller
 {
     public function index(){
+        $app = \Slim\Slim::getInstance();
+        $app->status(400);
+        $app->render("Errors/402.html");
     }
 }

@@ -16,11 +16,17 @@ class APIKEYMiddleware extends  \Slim\Middleware
     {
         //The Slim application
         $app = $this->app;
+        $req = $app->request;
         $msg ="";
-        if(Security::validHeader($msg)){
-            $this->next->call();
+        error_log(basename(__FILE__)." getRootUri: {$req->getRootUri()}  getResourceUri:{$req->getResourceUri()}");
+        if(strpos( $req->getResourceUri(), 'api') !== false){
+            if(Security::validHeader($msg)){
+                $this->next->call();
+            }else{
+                $app->redirect('/400', 400);
+            }
         }else{
-            return false;
+            $this->next->call();
         }
 
     }
