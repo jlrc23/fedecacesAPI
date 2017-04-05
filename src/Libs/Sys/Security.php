@@ -2,16 +2,16 @@
 namespace App\Libs\Sys;
 
 
+use App\Model\Dao\ApikeyDao;
+
 class Security
 {
-    private static $user ="f98899486719ab79ae9530bd3f776e0c"; //3F1EM69%0f3b
-    private static $pwd ="e7d6d15a6f4c7b7fddd8196d872cb302"; // %f1H^o917%D5
+    private static $user ="";
+    private static $pwd ="";
 
     const METHOD = 'AES-256-CBC';
     const SECRET_KEY = "jc8Y94&ek91q";
     const SECRET_DATABASE  = 'hyuTSucAC9PjurrDHB5ukF5P';
-
-
 
     /**
      * @var bool
@@ -32,7 +32,7 @@ class Security
             $usr = self::desencrypt($_SERVER["PHP_AUTH_USER"]);
             $pwd = self::desencrypt($_SERVER["PHP_AUTH_PW"]);
         }
-        if ($usr == self::$user && $pwd == self::$pwd)
+        if ( ApikeyDao::get($usr, $pwd) !== false)
             self::$auth = true;
         else {
             $msg = SysErrors::ERROR_403;
@@ -54,7 +54,6 @@ class Security
         }
         return $result;
     }
-
 
     /**
      * @param $message

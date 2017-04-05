@@ -11,7 +11,7 @@ namespace App\Model\Dao;
 
 use App\Libs\Sys\DataBase;
 
-class AbstractDao
+abstract class AbstractDao
 {
     /**
      * @var \PDO
@@ -26,6 +26,16 @@ class AbstractDao
     {
         self::$_pdo = DataBase::connect();
     }
+
+    /**
+     * @return null|\PDO
+     */
+    public static function getConnection(){
+        if(empty(self::$_pdo))
+            self::$_pdo =  DataBase::connect();
+        return self::$_pdo;
+    }
+
 
 
 }

@@ -22,14 +22,6 @@ class APIKEYMiddleware extends  \Slim\Middleware
         }else{
             return false;
         }
-        //The Environment object
-        $env = $app->environment;
-
-        //The Request object
-        $req = $app->request;
-
-        //The Response object
-        $res = $app->response;
 
     }
 }
