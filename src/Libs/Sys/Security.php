@@ -51,7 +51,7 @@ class Security
         if ($message != "") {
             $key = hash('sha256', self::SECRET_KEY);
             $size      = 16;
-            $iv        = random_bytes($size );
+            $iv        = \random_bytes($size );
             $ivSha256  = substr(hash('sha256', $iv),0,16);
             $result    = $iv.openssl_encrypt($message, self::METHOD, $key, 0, $ivSha256);
         }
