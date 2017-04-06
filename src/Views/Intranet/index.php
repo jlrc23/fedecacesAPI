@@ -12,7 +12,6 @@
         <label>Desencriptar:</label><input name="strToDesencrypt">
         <?php echo \App\Libs\Sys\Security::desencrypt($msgToDesencrypt); ?><br>
         <input type="submit">
-
     </form>
 </body>
 </html>
