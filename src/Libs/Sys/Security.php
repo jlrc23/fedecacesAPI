@@ -31,8 +31,8 @@ class Security
             $msg =SysErrors::ERROR_500;
             self::$auth = false;
         } else {
-            $usr = self::desencrypt($_SERVER["PHP_AUTH_USER"]);
-            $pwd = self::desencrypt($_SERVER["PHP_AUTH_PW"]);
+            $usr = $_SERVER["PHP_AUTH_USER"];
+            $pwd = $_SERVER["PHP_AUTH_PW"];
         }
         if ( ApikeyDao::get($usr, $pwd) !== false)
             self::$auth = true;

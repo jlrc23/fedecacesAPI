@@ -42,6 +42,18 @@ class UserDao extends AbstractDao
     }
 
     public function insert(Userbean $newuser){
+        $sql = "INSERT INTO users(email,password,name,created) VALUES(:email,:password,:name, :created)";
+        try{
+            $stmt = self::$_pdo->prepare($sql);
+            $stmt->bindValue("email",$newuser->getEmail(), \PDO::PARAM_STR);
+            $stmt->bindValue("password", $newuser->getPassword(), \PDO::PARAM_STR);
+            $stmt->bindValue("name", $newuser->getNombre(), \PDO::PARAM_STR);
+            $stmt->bindValue("created", "NOW()");
+
+        }catch (\Exception $e){
+            $message =  sprintf('['.basename(__FILE__).':'.__LINE__."] #%d. %s in query: $sql in %s:%d", $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+            error_log($message);
+        }
         return true;
     }
 
