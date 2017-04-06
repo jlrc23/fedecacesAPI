@@ -3,6 +3,8 @@ namespace App\Libs\Sys;
 
 
 use App\Model\Dao\ApikeyDao;
+use Error;
+use TypeError;
 
 class Security
 {
@@ -52,6 +54,18 @@ class Security
             $key = hash('sha256', self::SECRET_KEY);
             $size      = 16;
             $iv        = \random_bytes($size );
+            try {
+                $iv = random_bytes(16);
+            } catch (TypeError $e) {
+                // Well, it's an integer, so this IS unexpected.
+                die("An unexpected error has occurred");
+            } catch (Error $e) {
+                // This is also unexpected because 32 is a reasonable integer.
+                die("An unexpected error has occurred");
+            } catch (\Exception $e) {
+                // If you get this message, the CSPRNG failed hard.
+                die("Could not generate a random string. Is our OS secure?");
+            }
             $ivSha256  = substr(hash('sha256', $iv),0,16);
             $result    = $iv.openssl_encrypt($message, self::METHOD, $key, 0, $ivSha256);
         }
