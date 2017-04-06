@@ -50,9 +50,12 @@ class Security
         $result ="";
         if ($message != "") {
             $key = hash('sha256', self::SECRET_KEY);
-            $result = base64_encode(openssl_encrypt($message, self::METHOD, $key, 1 ));
+            $size      = 16;
+            $iv        = random_bytes($size );
+            $ivSha256  = substr(hash('sha256', $iv),0,16);
+            $result    = $iv.openssl_encrypt($message, self::METHOD, $key, 0, $ivSha256);
         }
-        return $result;
+        return base64_encode($result);
     }
 
     /**
@@ -65,7 +68,10 @@ class Security
         if ($message != "") {
             $message = base64_decode($message);
             $key = hash('sha256', self::SECRET_KEY);
-            $result = openssl_decrypt($message, self::METHOD, $key, 1);
+            $iv          = substr($message, 0, 16);
+            $message     = substr($message, 16);
+            $ivSha256    = substr(hash('sha256', $iv),0,16);
+            $result      = openssl_decrypt($message, self::METHOD, $key, 0, $ivSha256);
         }
         return $result;
     }
