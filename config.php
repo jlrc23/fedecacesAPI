@@ -5,6 +5,6 @@ $CONFIG =  array(
     'mode' => 'development',
     'log.level' => \Slim\Log::DEBUG,
     'log.enabled' => true,
-    'templates.path' => 'src/Views'
+    'templates.path' => './src/Views'
 );
 
