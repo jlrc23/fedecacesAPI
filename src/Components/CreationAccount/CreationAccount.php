@@ -18,10 +18,12 @@ class CreationAccount{
                 $user->setName($data["name"]);
             else
                 self::addError("missing", "name");
+
             if(isset($data["password"]))
                 $user->setPassword($data["password"]);
             else
                 self::addError("missing", "password");
+
             if(!self::hasError()){
                 $userDao =  new UserDao();
                 $result =  $userDao->save($user, self::$_errors);
@@ -33,7 +35,12 @@ class CreationAccount{
         return $result;
     }
     private static function addError($type, $msg){
-        self::$_errors[$type]= $msg;
+        if(!isset(self::$_errors[$type])){
+            self::$_errors[$type] = array();
+        }
+        array_push(self::$_errors[$type], $msg);
+
+
     }
     private static function hasError(){
         if(sizeof(self::$_errors)>0)
