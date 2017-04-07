@@ -1,6 +1,6 @@
 <?php
 namespace App\Middleware;
-use App\Libs\Sys\Security;
+use App\Sys\Security;
 
 class APIKEYMiddleware extends  \Slim\Middleware
 {

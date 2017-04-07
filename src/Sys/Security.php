@@ -1,5 +1,5 @@
 <?php
-namespace App\Libs\Sys;
+namespace App\Sys;
 
 
 use App\Model\Dao\ApikeyDao;

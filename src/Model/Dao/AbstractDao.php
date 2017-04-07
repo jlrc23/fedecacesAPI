@@ -9,7 +9,7 @@
 namespace App\Model\Dao;
 
 
-use App\Libs\Sys\DataBase;
+use App\Sys\DataBase;
 
 abstract class AbstractDao
 {

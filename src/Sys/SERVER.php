@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Libs\Sys;
+namespace App\Sys;
 
 
 class SERVER

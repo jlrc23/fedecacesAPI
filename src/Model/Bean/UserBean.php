@@ -5,7 +5,7 @@ class UserBean{
     public $id;
     public $email;
     public $password;
-    public $nombre;
+    public $name;
     public $created;
 
     /**
@@ -59,18 +59,19 @@ class UserBean{
     /**
      * @return mixed
      */
-    public function getNombre()
+    public function getName()
     {
-        return $this->nombre;
+        return $this->name;
     }
 
     /**
-     * @param mixed $nombre
+     * @param mixed $name
      */
-    public function setNombre($nombre)
+    public function setName($name)
     {
-        $this->nombre = $nombre;
+        $this->name = $name;
     }
+
 
     /**
      * @return mixed

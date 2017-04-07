@@ -3,26 +3,27 @@
 namespace App\Model\Dao;
 
 
-use App\Libs\Sys\DataBase;
-use App\Libs\Sys\SysErrors;
+use App\Sys\DataBase;
+use App\Sys\SysErrors;
 use App\Model\Bean\UserBean;
 
 class UserDao extends AbstractDao
 {
 
-    public function save(UserBean $newUser)
+    public function save(UserBean $newUser, &$error=null)
     {
-        if ($this->exists($newUser->getEmail()) )
-            throw new \Exception(SysErrors::ERROR_305);
+        if ($this->exists($newUser->getEmail()) ){
+            $error = SysErrors::ERROR_306;
+            return false;
+        }
         else
             return $this->insert($newUser);
     }
 
     public function exists($email )
     {
-        if (empty($email)) {
+        if (empty($email))
             throw new \Exception("There are wont email of user");
-        }
         $sql = "SELECT count(*) as total FROM users WHERE email = :email";
         try {
             $stmt = self::$_pdo->prepare($sql);
@@ -42,19 +43,21 @@ class UserDao extends AbstractDao
     }
 
     public function insert(Userbean $newuser){
-        $sql = "INSERT INTO users(email,password,name,created) VALUES(:email,:password,:name, :created)";
+        $result = false;
+        $sql = "INSERT INTO users(email,password,name,created) VALUES(:email,:password,:name,:created)";
         try{
             $stmt = self::$_pdo->prepare($sql);
             $stmt->bindValue("email",$newuser->getEmail(), \PDO::PARAM_STR);
             $stmt->bindValue("password", $newuser->getPassword(), \PDO::PARAM_STR);
-            $stmt->bindValue("name", $newuser->getNombre(), \PDO::PARAM_STR);
-            $stmt->bindValue("created", "NOW()");
-
+            $stmt->bindValue("name", $newuser->getName(), \PDO::PARAM_STR);
+            $stmt->bindValue("created", date("Y-m-d H:i:s"));
+            if($stmt->execute())
+                $result =  true;
         }catch (\Exception $e){
             $message =  sprintf('['.basename(__FILE__).':'.__LINE__."] #%d. %s in query: $sql in %s:%d", $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
             error_log($message);
         }
-        return true;
+        return $result;
     }
 
 
