@@ -4,6 +4,8 @@ namespace App\Sys;
 
 class SysErrors
 {
+
+    const MISSING_FIELDS_CODE = 550;
     const ERROR_520 = "520. Error inesperado";
     const ERROR_500 = "500. Ocurrio un error mientras se procesaba su petición";
     const ERROR_402 = "402. Invalido API_KEY";

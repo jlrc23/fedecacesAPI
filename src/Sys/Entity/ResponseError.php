@@ -10,8 +10,11 @@ class ResponseError extends ResponseBasic
     public $tracking_code;
     public $code=0;
 
-    public function __construct($message )
+    public function __construct($message, $code=null )
     {
+        if(!empty($code))
+            $this->code = $code;
+
         if(!is_array($message) && strpos($message,".")!==false)
             list($this->code, $message)=explode(".",$message);
         parent::__construct($message, SysMsg::SYS_STATUS_ERROR);
@@ -27,7 +30,7 @@ class ResponseError extends ResponseBasic
     {
         return array(
             "status" => $this->status,
-            "code"   => $this->code,
+            "code"   => intval($this->code),
             "message" => $this->message,
             'tracking_code' => $this->tracking_code
         );

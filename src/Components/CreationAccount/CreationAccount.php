@@ -3,9 +3,14 @@ namespace App\Components\CreationAccount;
 
 use App\Model\Bean\UserBean;
 use App\Model\Dao\UserDao;
+use App\Sys\Entity\ResponseError;
+use App\Sys\Entity\ResponseSuccess;
+use App\Sys\SysErrors;
 
 class CreationAccount{
     private static $_errors = array();
+
+
     public static function save(array $data, &$error = null){
         $result = false;
         try{
@@ -26,10 +31,18 @@ class CreationAccount{
 
             if(!self::hasError()){
                 $userDao =  new UserDao();
-                $result =  $userDao->save($user, self::$_errors);
+                $res =  $userDao->save($user, self::$_errors);
+                if($res){
+                    $result = new ResponseSuccess("Cuenta creada con exito");
+                }
+
             }
         }catch (\Exception $e){
             error_log($e);
+        }
+        if(self::hasError()){
+            $result = new ResponseError(self::getErrors(),SysErrors::MISSING_FIELDS_CODE);
+
         }
         $error = self::getErrors();
         return $result;
@@ -50,4 +63,10 @@ class CreationAccount{
     public static function getErrors(){
         return self::$_errors;
     }
+
+    /**
+     *             new ResponseBasic("Guardado exitoso")
+    new ResponseError($errors);
+
+     */
 }

@@ -28,10 +28,7 @@ class CreateAccountController
     }
 
     public function index(){
-        $response = CreationAccount::save($this->_app->request()->post(), $errors)?
-            new ResponseBasic("Guardado exitoso"):
-            new ResponseError($errors);
-        $this->response->setBody($response);
+        $this->response->setBody( CreationAccount::save($this->_app->request()->post()));
         $this->_app->response =  $this->response;
     }
 }
