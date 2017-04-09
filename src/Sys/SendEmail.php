@@ -35,7 +35,6 @@ class SendEmail
     }
 
     private static function prepareMailer(){
-        self::$_mailer->SMTPDebug = 3;
         self::$_mailer->isSMTP();
         self::$_mailer->Host = SMTP::HOST;
         self::$_mailer->CharSet="UTF-8";

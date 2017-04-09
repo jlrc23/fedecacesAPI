@@ -27,7 +27,7 @@ class CreationAccount{
         $smarty->assign("name", $usr->getName() );
         $smarty->assign("password", $usr->getPassword() );
         $smarty->assign("username", $usr->getEmail() );
-        $msg = $smarty->fetch( ROOT_APP.APP::TEMPLATE_EMAIL."Account/Recuperar.tpl");
+        $msg = $smarty->fetch( ROOT_APP . APP::TEMPLATE_EMAIL. "Account/Recuperar.tpl");
         SendEmail::email($msg, $usr->getEmail(),"Recuperacion de correo");
     }
 
