@@ -86,16 +86,20 @@ class CreationAccount{
     }
 
     public static function recovery($email){
-        $result = null;
-        if(empty($email))
-           $result= new  ResponseError(self::getErrors(),SysErrors::MISSING_FIELDS_CODE);
 
-        $userDao =  new UserDao();
-        if($userDao->exists($email)){
-            $user = $userDao->get($email);
-            self::SendEmailRecuperar($user);
-            $result = new ResponseBasic("Se le ha enviado un email con sus datos de acceso a {$email}");
+        $result = null;
+        if(empty($email)){
+            self::addError("missing", "email");
+            $result= new  ResponseError(self::getErrors(),SysErrors::MISSING_FIELDS_CODE);
+        }else{
+            $userDao =  new UserDao();
+            if($userDao->exists($email)){
+                $user = $userDao->get($email);
+                self::SendEmailRecuperar($user);
+                $result = new ResponseBasic("Se le ha enviado un email con sus datos de acceso a {$email}");
+            }
         }
+
         return $result;
     }
 
