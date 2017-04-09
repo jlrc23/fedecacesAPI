@@ -28,7 +28,14 @@ class CreateAccountController
     }
 
     public function index(){
-        $this->response->setBody( CreationAccount::save($this->_app->request()->post()));
+        $data = array(
+            "email"=>$this->_app->request->get("email"),
+            "name"=>$this->_app->request->get("name"),
+            "password" =>$this->_app->request->get("password")
+        );
+        error_log($this->_app->request()->post());
+        error_log($data);
+        $this->response->setBody( CreationAccount::save(4data));
         $this->_app->response =  $this->response;
     }
 }
