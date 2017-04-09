@@ -58,7 +58,7 @@ class SendEmail
             self::$_mailer->addAddress($to);
             self::$_mailer->Body    = $message;
             self::$_mailer->AltBody = strip_tags($message);
-            if(self::$_mailer->send()) {
+            if(!self::$_mailer->send()) {
                 $msg ='['.basename(__FILE__).':'.__LINE__." ] Error ". self::$_mailer->ErrorInfo;
                 error_log($msg);
                 throw new \Exception('Message could not be sent.');
