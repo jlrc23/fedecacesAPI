@@ -22,6 +22,15 @@ class CreationAccount{
         SendEmail::email($msg, $usr->getEmail(),"Creación de cuenta");
     }
 
+    private static function SendEmailRecuperar(UserBean $usr){
+        $smarty = new \Smarty();
+        $smarty->assign("name", $usr->getName() );
+        $smarty->assign("password", $usr->getPassword() );
+        $smarty->assign("username", $usr->getEmail() );
+        $msg = $smarty->fetch( ROOT_APP.APP::TEMPLATE_EMAIL."Account/Recuperar.tpl");
+        SendEmail::email($msg, $usr->getEmail(),"Recuperacion de correo");
+    }
+
     public static function save(array $data, &$error = null){
         $result = false;
         try{
@@ -85,7 +94,7 @@ class CreationAccount{
         if($userDao->exists($email)){
             $user = $userDao->get($email);
             error_log(print_r($user, true));
-            self::SendEmail($user);
+            self::SendEmailRecuperar($user);
             $result = new ResponseBasic("Se le ha enviado un email con sus datos de acceso a {$email}");
         }
         return $result;
