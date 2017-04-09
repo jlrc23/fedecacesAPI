@@ -3,12 +3,10 @@
 
 namespace App\Config;
 
-
 use App\Sys\DataBase;
 
 class SMTP
 {
-
     const HOST = "mail.aprendizajefedecaces.com.mx";
     const USR = "noresponder@aprendizajefedecaces.com.mx";
     const SMTPSecure = 'tls';
