@@ -8,6 +8,7 @@ class UserBean{
     public $name;
     public $created;
 
+
     /**
      * @return mixed
      */

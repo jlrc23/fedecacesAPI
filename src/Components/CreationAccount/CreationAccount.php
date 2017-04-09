@@ -84,6 +84,7 @@ class CreationAccount{
         $userDao =  new UserDao();
         if($userDao->exists($email)){
             $user = $userDao->get($email);
+            error_log(print_r($user, true));
             self::SendEmail($user);
             $result = new ResponseBasic("Se le ha enviado un email con sus datos de acceso a {$email}");
         }

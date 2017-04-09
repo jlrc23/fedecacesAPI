@@ -13,5 +13,4 @@ class SMTP
     const PORT = "25";
     const NAME = "Aprendizaje FEDECACES";
     const isHTML = true;
-
 }
