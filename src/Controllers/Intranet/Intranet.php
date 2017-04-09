@@ -17,6 +17,6 @@ class Intranet
 //        <label>Desencriptar:</label><input name=\"strToDesencrypt\">".Security::desencrypt($msgToDesencrypt)."<br>
 //        <input type=\"submit\">
 //    </form>");
-       $app->render('Intranet\index.php',array('msgToEncrypt'=>$msgToEncrypt, "msgToDesencrypt"=>$msgToDesencrypt) );
+       $app->render('/Intranet/index.php',array('msgToEncrypt'=>$msgToEncrypt, "msgToDesencrypt"=>$msgToDesencrypt) );
     }
 }
