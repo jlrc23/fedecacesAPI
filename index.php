@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 require_once ("config.php");
+define("ROOT_APP",  dirname(__FILE__));
 global $CONFIG;
 $app = new \Slim\Slim($CONFIG);
 \App\Sys\I18N::prepare();

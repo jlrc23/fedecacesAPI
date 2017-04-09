@@ -1,15 +1,25 @@
 <?php
 namespace App\Components\CreationAccount;
 
+use App\Config\APP;
 use App\Model\Bean\UserBean;
 use App\Model\Dao\UserDao;
 use App\Sys\Entity\ResponseError;
 use App\Sys\Entity\ResponseSuccess;
+use App\Sys\SendEmail;
 use App\Sys\SysErrors;
 
 class CreationAccount{
     private static $_errors = array();
 
+    private static function SendEmail(UserBean $usr){
+        $smarty = new \Smarty();
+        $smarty->assign("name", $usr->getName() );
+        $smarty->assign("password", $usr->getPassword() );
+        $smarty->assign("username", $usr->getEmail() );
+        $mesasge = $smarty->fetch(APP::TEMPLATE_EMAIL."Account/Create.tpl");
+        SendEmail::email($mesasge, $usr->getEmail(),"Creacion de cuenta");
+    }
 
     public static function save(array $data, &$error = null){
         $result = false;
@@ -34,6 +44,7 @@ class CreationAccount{
                 $res =  $userDao->save($user, self::$_errors);
                 if($res){
                     $result = new ResponseSuccess("Cuenta creada con exito");
+                    self::SendEmail($user);
                 }
 
             }
@@ -63,6 +74,7 @@ class CreationAccount{
     public static function getErrors(){
         return self::$_errors;
     }
+
 
     /**
      *             new ResponseBasic("Guardado exitoso")

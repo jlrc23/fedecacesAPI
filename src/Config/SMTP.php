@@ -10,7 +10,7 @@ class SMTP
     const HOST = "mail.aprendizajefedecaces.com.mx";
     const USR = "noresponder@aprendizajefedecaces.com.mx";
     const SMTPSecure = 'tls';
-    const PORT =465;
+    const PORT = "465";
     const NAME = "Aprendizaje FEDECACES";
     const isHTML = true;
 
