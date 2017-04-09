@@ -12,11 +12,11 @@ class UserDao extends AbstractDao
 
     public function save(UserBean $newUser, &$error=null)
     {
-//        if ($this->exists($newUser->getEmail()) ){
-//            $error = SysErrors::ERROR_306;
-//            return false;
-//        }
-//        else
+        if ($this->exists($newUser->getEmail()) ){
+            $error = SysErrors::ERROR_306;
+            return false;
+        }
+        else
             return $this->insert($newUser);
     }
 
