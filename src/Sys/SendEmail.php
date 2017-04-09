@@ -66,7 +66,7 @@ class SendEmail
         }catch (\Exception $e){
             $msg = '['. dirname(__FILE__).':'.__LINE__."] Ocurred error {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}";
             error_log($msg);
-            throw $e;
+//            throw $e;
         }
         return true;
     }
