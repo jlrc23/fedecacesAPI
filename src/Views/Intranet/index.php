@@ -8,9 +8,9 @@
 <h1>Intranet</h1>
     <form method="post">
         <label>encriptar:</label><input name="strToEncriptar">
-        <?php echo \App\Libs\Sys\Security::encrypt($msgToEncrypt); ?><br>
+        <?php echo \App\Sys\Security::encrypt($msgToEncrypt); ?><br>
         <label>Desencriptar:</label><input name="strToDesencrypt">
-        <?php echo \App\Libs\Sys\Security::desencrypt($msgToDesencrypt); ?><br>
+        <?php echo \App\Sys\Security::desencrypt($msgToDesencrypt); ?><br>
         <input type="submit">
     </form>
 </body>
