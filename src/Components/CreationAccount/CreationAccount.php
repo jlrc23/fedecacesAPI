@@ -4,6 +4,7 @@ namespace App\Components\CreationAccount;
 use App\Config\APP;
 use App\Model\Bean\UserBean;
 use App\Model\Dao\UserDao;
+use App\Sys\Entity\ResponseBasic;
 use App\Sys\Entity\ResponseError;
 use App\Sys\Entity\ResponseSuccess;
 use App\Sys\SendEmail;
@@ -17,8 +18,8 @@ class CreationAccount{
         $smarty->assign("name", $usr->getName() );
         $smarty->assign("password", $usr->getPassword() );
         $smarty->assign("username", $usr->getEmail() );
-        $mesasge = $smarty->fetch( ROOT_APP.APP::TEMPLATE_EMAIL."Account/Create.tpl");
-        SendEmail::email($mesasge, $usr->getEmail(),"Creación de cuenta");
+        $msg = $smarty->fetch( ROOT_APP.APP::TEMPLATE_EMAIL."Account/Create.tpl");
+        SendEmail::email($msg, $usr->getEmail(),"Creación de cuenta");
     }
 
     public static function save(array $data, &$error = null){
@@ -73,6 +74,20 @@ class CreationAccount{
     }
     public static function getErrors(){
         return self::$_errors;
+    }
+
+    public static function recovery($email){
+        $result = null;
+        if(empty($email))
+           $result= new  ResponseError(self::getErrors(),SysErrors::MISSING_FIELDS_CODE);
+
+        $userDao =  new UserDao();
+        if($userDao->exists($email)){
+            $user = $userDao->get($email);
+            self::SendEmail($user);
+            $result = new ResponseBasic("Se le ha enviado un email con sus datos de acceso a {$email}");
+        }
+        return $result;
     }
 
 }

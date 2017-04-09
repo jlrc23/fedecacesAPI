@@ -60,5 +60,29 @@ class UserDao extends AbstractDao
         return $result;
     }
 
+    public function get($email )
+    {
+        $result = null;
+        if (empty($email))
+            throw new \Exception("There are wont email of user");
+        $sql = "SELECT password, name, email as total FROM users WHERE email = :email LIMIT 1";
+        try {
+            $stmt = self::$_pdo->prepare($sql);
+            $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+            $stmt->execute();
+            if($stmt->rowCount()>0){
+                $res = $stmt->fetch(\PDO::FETCH_OBJ);//'\App\Model\Bean\UserBean'
+                $result = new UserBean($res);
+            }
+        } catch (\PDOException $e) {
+            $message =  sprintf('['.basename(__FILE__).':'.__LINE__."] #%d. %s in query: $sql in %s:%d", $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+            error_log($message);
+        } catch (\Exception $e) {
+            $message =  sprintf('['.basename(__FILE__).':'.__LINE__."] #%d. %s in query: $sql in %s:%d", $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+            error_log($message);
+        }
+        return $result;
+    }
+
 
 }

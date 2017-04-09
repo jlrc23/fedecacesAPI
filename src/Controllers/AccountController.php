@@ -7,7 +7,7 @@ use App\Sys\Entity\ResponseError;
 use Slim\Http\Response;
 use Slim\Slim;
 
-class CreateAccountController
+class AccountController
 {
     /**
      * @var Slim
@@ -27,9 +27,16 @@ class CreateAccountController
         $this->response->headers->set('Content-Type', 'application/json');
     }
 
-    public function index(){
+    public function create(){
         $data = $this->_app->request()->post();
         $this->response->setBody( CreationAccount::save($data));
         $this->_app->response =  $this->response;
+    }
+
+    public function recovery(){
+        $email = $this->_app->request()->post("email");
+        $this->response->setBody( CreationAccount::recovery($email));
+        $this->_app->response =  $this->response;
+
     }
 }
