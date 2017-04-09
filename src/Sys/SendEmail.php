@@ -60,8 +60,7 @@ class SendEmail
             self::$_mailer->AltBody = strip_tags($message);
             if(!self::$_mailer->send()) {
                 $msg ='['.basename(__FILE__).':'.__LINE__." ] Error ". self::$_mailer->ErrorInfo;
-                error_log($msg);
-                throw new \Exception('Message could not be sent.');
+//                throw new \Exception('Message could not be sent.');
             }
         }catch (\Exception $e){
             $msg = '['. dirname(__FILE__).':'.__LINE__."] Ocurred error {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}";
