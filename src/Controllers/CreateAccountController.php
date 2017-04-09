@@ -35,7 +35,7 @@ class CreateAccountController
         );
         error_log("POST " . print_r($this->_app->request()->post(), true));
         error_log("ARRAY: ".print_r($data, true));
-        $this->response->setBody( CreationAccount::save($data));
+        $this->response->setBody( CreationAccount::save(print_r($this->_app->request()->post())));
         $this->_app->response =  $this->response;
     }
 }
