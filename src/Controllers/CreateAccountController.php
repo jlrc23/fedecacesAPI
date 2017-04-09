@@ -35,7 +35,7 @@ class CreateAccountController
         );
         error_log($this->_app->request()->post());
         error_log($data);
-        $this->response->setBody( CreationAccount::save(4data));
+        $this->response->setBody( CreationAccount::save($data));
         $this->_app->response =  $this->response;
     }
 }
