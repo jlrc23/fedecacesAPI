@@ -17,7 +17,7 @@ class CreationAccount{
         $smarty->assign("name", $usr->getName() );
         $smarty->assign("password", $usr->getPassword() );
         $smarty->assign("username", $usr->getEmail() );
-        $mesasge = $smarty->fetch(APP::TEMPLATE_EMAIL."Account/Create.tpl");
+        $mesasge = $smarty->fetch( ROOT_APP.APP::TEMPLATE_EMAIL."Account/Create.tpl");
         SendEmail::email($mesasge, $usr->getEmail(),"Creacion de cuenta");
     }
 

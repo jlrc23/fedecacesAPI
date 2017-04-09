@@ -7,10 +7,8 @@
  */
 
 namespace App\Config;
-
-
 class APP
 {
-    const TEMPLATE_EMAIL = ROOT_APP.'/src/Templates/';
+    const TEMPLATE_EMAIL = '/src/Templates/';
     const URL = "api.aprendizajefedecaces.com.mx";
 }
