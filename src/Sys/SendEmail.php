@@ -42,7 +42,7 @@ class SendEmail
         self::$_mailer->Username = self::$_options->readOption("SMTP_USER");
         self::$_mailer->Password = self::$_options->readOption("SMTP_PASSWORD");
         self::$_mailer->SMTPSecure = SMTP::SMTPSecure;
-        self::$_mailer->setFrom(SMTP::USR, SMTP::NAME);
+//        self::$_mailer->setFrom(SMTP::USR, SMTP::NAME);
         self::$_mailer->From = SMTP::USR;
         self::$_mailer->FromName = SMTP::NAME;
         self::$_mailer->Port = SMTP::PORT;
