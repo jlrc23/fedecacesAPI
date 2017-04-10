@@ -29,16 +29,18 @@ class AccountController
 
     public function create(){
         $json = json_decode(file_get_contents('php://input'), true);
-        error_log('['.basename(__FILE__).':'.__LINE__."] JSON:".print_r($json, true));
         $data = $this->_app->request()->post();
         if(empty($data))
-            $data =$json;
+            $data = $json;
         $this->response->setBody( CreationAccount::save($data));
         $this->_app->response =  $this->response;
     }
 
     public function recovery(){
+        $json = json_decode(file_get_contents('php://input'), true);
         $email = $this->_app->request()->post("email");
+        if(empty($email))
+            $email = $json->email;
         $this->response->setBody( CreationAccount::recovery($email));
         $this->_app->response =  $this->response;
     }
@@ -46,6 +48,11 @@ class AccountController
     public function login(){
         $email = $this->_app->request()->post("email");
         $password = $this->_app->request()->post("password");
+        $json = json_decode(file_get_contents('php://input'), true);
+        if(empty($email))
+            $email = $json->email;
+        if(empty($password))
+            $password = $json->email;
         $this->response->setBody( CreationAccount::login($email,$password));
         $this->_app->response =  $this->response;
     }
