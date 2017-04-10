@@ -14,4 +14,5 @@ class SysErrors
     const ERROR_306 = "306. El correo electronico ya existe";
     const FAUL_DATABASE = 'No se puede conectar a la base de datos';
     const ERROR_600 = "600. Acceso denegado ";
+    const PASSWORD_WRONG = "301. Contraseña incorrecta";
 }

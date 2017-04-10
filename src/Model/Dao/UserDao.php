@@ -60,6 +60,11 @@ class UserDao extends AbstractDao
         return $result;
     }
 
+    /**
+     * @param $email
+     * @return null|UserBean
+     * @throws \Exception
+     */
     public function get($email )
     {
         $result = null;

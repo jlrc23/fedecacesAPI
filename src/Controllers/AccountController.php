@@ -37,6 +37,13 @@ class AccountController
         $email = $this->_app->request()->post("email");
         $this->response->setBody( CreationAccount::recovery($email));
         $this->_app->response =  $this->response;
-
     }
+
+    public function login(){
+        $email = $this->_app->request()->post("email");
+        $password = $this->_app->request()->post("password");
+        $this->response->setBody( CreationAccount::login($email,$password));
+        $this->_app->response =  $this->response;
+    }
+
 }

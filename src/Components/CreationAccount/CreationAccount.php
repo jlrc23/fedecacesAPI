@@ -86,7 +86,6 @@ class CreationAccount{
     }
 
     public static function recovery($email){
-
         $result = null;
         if(empty($email)){
             self::addError("missing", "email");
@@ -100,6 +99,34 @@ class CreationAccount{
             }
         }
 
+        return $result;
+    }
+
+    /**
+     * @param $email
+     * @param $password
+     * @return ResponseError|null
+     */
+    public static function login($email, $password)
+    {
+        $result = null;
+        if(empty($email))
+            self::addError("missing", "email");
+        if(empty($password))
+            self::addError("missing", "password");
+
+        if(self::hasError())
+            $result= new  ResponseError(self::getErrors(),SysErrors::MISSING_FIELDS_CODE);
+        else{
+            $userDao =  new UserDao();
+            if($userDao->exists($email)){
+                $user = $userDao->get($email);
+                if($password == $user->getPassword())
+                    $result = new ResponseBasic($user);
+                else
+                    $result= new  ResponseError(self::getErrors(),SysErrors::PASSWORD_WRONG);
+            }
+        }
         return $result;
     }
 
