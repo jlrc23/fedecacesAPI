@@ -28,7 +28,11 @@ class AccountController
     }
 
     public function create(){
+        $json = json_decode(file_get_contents('php://input'), true);
+        error_log('['.basename(__FILE__).':'.__LINE__."] JSON:".print_r($json, true));
         $data = $this->_app->request()->post();
+        if(empty($data))
+            $data =$json;
         $this->response->setBody( CreationAccount::save($data));
         $this->_app->response =  $this->response;
     }
