@@ -7,6 +7,9 @@ class UserBean{
     public $password;
     public $name;
     public $created;
+    public $status_module;
+    public $status_topic;
+    public $status_question;
 
 
     /**

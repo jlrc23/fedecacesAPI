@@ -130,4 +130,9 @@ class CreationAccount{
         return $result;
     }
 
+    public static  function update_status($module, $topic, $question){
+
+
+    }
+
 }
