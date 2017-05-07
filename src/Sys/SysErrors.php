@@ -15,4 +15,5 @@ class SysErrors
     const FAUL_DATABASE = 'No se puede conectar a la base de datos';
     const ERROR_600 = "600. Acceso denegado ";
     const PASSWORD_WRONG = "301. Contraseña incorrecta";
+    const ACCOUNT_NOT_EXIST = "305. La cuenta no existe";
 }
