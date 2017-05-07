@@ -132,7 +132,7 @@ class CreationAccount{
                     $result= new  ResponseError(self::getErrors(),SysErrors::PASSWORD_WRONG);
                 }
             }else{
-                $result= new  ResponseError(self::getErrors(),SysErrors::ACCOUNT_NOT_EXIST);
+                $result= new  ResponseError(SysErrors::ACCOUNT_NOT_EXIST,305);
             }
         }
         error_log(basename(__FILE__).':'.__LINE__."] Result of login". print_r($result, true));
