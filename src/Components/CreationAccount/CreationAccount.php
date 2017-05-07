@@ -122,12 +122,18 @@ class CreationAccount{
             $userDao =  new UserDao();
             if($userDao->exists($email)){
                 $user = $userDao->get($email);
-                if($password == $user->getPassword())
+                if($password == $user->getPassword()){
+                    error_log(basename(__FILE__).':'.__LINE__."] The password is right");
                     $result = new ResponseBasic($user);
-                else
+                    error_log(basename(__FILE__).':'.__LINE__."] The password is right". print_r($user, true));
+                }
+                else{
+                    error_log(basename(__FILE__).':'.__LINE__."] The password is wrong");
                     $result= new  ResponseError(self::getErrors(),SysErrors::PASSWORD_WRONG);
+                }
             }
         }
+        error_log(basename(__FILE__).':'.__LINE__."] Result of login". print_r($result, true));
         return $result;
     }
 
