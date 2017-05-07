@@ -17,7 +17,7 @@ class ResponseError extends ResponseBasic
 
         if(!is_array($message) && strpos($message,".")!==false)
             list($this->code, $message)=explode(".",$message);
-        parent::__construct($message, SysMsg::SYS_STATUS_ERROR);
+        parent::__construct(trim($message), SysMsg::SYS_STATUS_ERROR);
         $this->tracking_code = $this->getTrackingCode();
     }
 
