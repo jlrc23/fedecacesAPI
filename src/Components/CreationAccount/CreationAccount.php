@@ -129,7 +129,7 @@ class CreationAccount{
                 }
                 else{
                     error_log(basename(__FILE__).':'.__LINE__."] The password is wrong");
-                    $result= new  ResponseError(self::getErrors(),SysErrors::PASSWORD_WRONG);
+                    $result= new  ResponseError(SysErrors::PASSWORD_WRONG,301);
                 }
             }else{
                 $result= new  ResponseError(SysErrors::ACCOUNT_NOT_EXIST,305);
