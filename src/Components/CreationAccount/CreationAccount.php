@@ -118,6 +118,7 @@ class CreationAccount{
         if(self::hasError())
             $result= new  ResponseError(self::getErrors(),SysErrors::MISSING_FIELDS_CODE);
         else{
+            error_log(basename(__FILE__).':'.__LINE__."] Into here login function");
             $userDao =  new UserDao();
             if($userDao->exists($email)){
                 $user = $userDao->get($email);

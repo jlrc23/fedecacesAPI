@@ -50,12 +50,16 @@ class AccountController
             error_log(basename(__FILE__).':'.__LINE__."] Into to login");
             $email = $this->_app->request()->post("email");
             $password = $this->_app->request()->post("password");
+
             $json = json_decode(file_get_contents('php://input'), true);
+            error_log(basename(__FILE__).':'.__LINE__."] Info login:". print_r($json, true));
             if(empty($email))
                 $email = $json->email;
             if(empty($password))
                 $password = $json->email;
+            error_log(basename(__FILE__).':'.__LINE__."] Info login:". print_r($json, true));
             $this->response->setBody( CreationAccount::login($email,$password));
+            error_log(basename(__FILE__).':'.__LINE__."] Response login:". print_r($this->response, true));
             $this->_app->response =  $this->response;
         }catch(\Exception $e){
             error_log(basename(__FILE__).':'.__LINE__."] Error {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}");
