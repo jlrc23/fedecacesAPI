@@ -15,10 +15,14 @@ class ResponseError extends ResponseBasic
         if(!empty($code))
             $this->code = $code;
 
-        if(!is_array($message) && strpos($message,".")!==false)
+        if(!is_array($message) && strpos($message,".")!==false){
             list($this->code, $message)=explode(".",$message);
-        parent::__construct(trim($message), SysMsg::SYS_STATUS_ERROR);
-        $this->tracking_code = $this->getTrackingCode();
+            parent::__construct(trim($message), SysMsg::SYS_STATUS_ERROR);
+            $this->tracking_code = $this->getTrackingCode();
+        }else{
+            parent::__construct($message, 500);
+        }
+
     }
 
     private function getTrackingCode()

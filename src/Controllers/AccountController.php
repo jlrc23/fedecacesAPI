@@ -57,7 +57,7 @@ class AccountController
                 $email = $json->email;
             if(empty($password))
                 $password = $json->email;
-            error_log(basename(__FILE__).':'.__LINE__."] Info login:". print_r($json, true));
+            error_log(basename(__FILE__).':'.__LINE__."] Info login: (email:{$email}), (password:{$password})");
             $this->response->setBody( CreationAccount::login($email,$password));
             error_log(basename(__FILE__).':'.__LINE__."] Response login:". print_r($this->response, true));
             $this->_app->response =  $this->response;
