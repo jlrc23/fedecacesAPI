@@ -54,9 +54,9 @@ class AccountController
             $json = json_decode(file_get_contents('php://input'), true);
             error_log(basename(__FILE__).':'.__LINE__."] Info login:". print_r($json, true));
             if(empty($email))
-                $email = $json->email;
+                $email = $json["email"];
             if(empty($password))
-                $password = $json->email;
+                $password = $json["password"];
             error_log(basename(__FILE__).':'.__LINE__."] Info login: (email:{$email}), (password:{$password})");
             $this->response->setBody( CreationAccount::login($email,$password));
             error_log(basename(__FILE__).':'.__LINE__."] Response login:". print_r($this->response, true));
